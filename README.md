@@ -184,7 +184,7 @@ npm start
 
 | Method | Endpoint         | Description         | Auth |
 |--------|------------------|---------------------|------|
-| POST   | /api/auth/login  | User login          | ❌   |
+| POST   | /api/auth/login  | User login          | ✅   |
 | POST   | /api/auth/register | User registration | ❌   |
 | GET    | /api/auth/me     | Get current user    | ✅   |
 
@@ -277,6 +277,18 @@ export DEBUG=app:*
 export NODE_ENV=development
 ```
 
+
+### Key Features
+
+
+#### 1. Payment Request Creation
+![Create Request](https://res.cloudinary.com/dcgx25t3c/image/upload/v1757862449/admin_zowvri.png)
+
+#### 2. Admin Dashboard
+![Admin Panel](https://res.cloudinary.com/dcgx25t3c/image/upload/v1757862449/admin1_cknz7g.png)
+
+
+
 ---
 
 ## 📞 Support
@@ -289,5 +301,5 @@ export NODE_ENV=development
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the [](LICENSE) file for details.
+This project is licensed under the MIT License. See the [https://github.com/KingsIke/Payment-Request-System/blob/main/payment-system-back/LICENSE](LICENSE) file for details.
 ```
