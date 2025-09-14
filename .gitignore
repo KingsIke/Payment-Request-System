@@ -1,0 +1,19 @@
+# Node
+node_modules/
+dist/
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build
+build/
+.vite/
+*.log
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
