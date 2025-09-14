@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../api/apiService';
-
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// eslint-disable-next-line no-unused-vars
 export default function ApprovalView({ user, token }) {
   const [approvals, setApprovals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +46,7 @@ export default function ApprovalView({ user, token }) {
       });
 
       if (result.message && result.status) {
-        toast.success(`Request ${action} successfully`);
+        toast.success(`Request ${action} successfully by ${result.role}`);
         await loadApprovals();
         setSelectedRequest(null);
         setComments('');
@@ -63,6 +61,17 @@ export default function ApprovalView({ user, token }) {
       console.error('Error approving request:', error);
       toast.error('Network error. Please try again.');
     }
+  };
+
+  const getActionButtonText = (request, action) => {
+    if (user.role === 'admin') {
+      if (request.status === 'pending') {
+        return action === 'approved' ? 'Approve (as Manager)' : 'Reject';
+      } else if (request.status === 'approved') {
+        return action === 'approved' ? 'Approve (as Finance)' : 'Reject';
+      }
+    }
+    return action === 'approved' ? 'Approve' : 'Reject';
   };
 
   if (isLoading) {
@@ -94,6 +103,9 @@ export default function ApprovalView({ user, token }) {
       <div className="card">
         <div className="card-header">
           <i className="fas fa-tasks me-2"></i>Pending Approvals
+          {user.role === 'admin' && (
+            <span className="badge bg-info ms-2">Admin Mode: Full Access</span>
+          )}
         </div>
         <div className="card-body">
           {approvals.length > 0 ? (
@@ -110,6 +122,11 @@ export default function ApprovalView({ user, token }) {
                           Requested by {request.user_name} ({request.user_email}) on {new Date(request.created_at).toLocaleDateString()}
                         </small>
                       </p>
+                      {user.role === 'admin' && (
+                        <span className={`badge bg-secondary me-2`}>
+                          Current Status: {request.status}
+                        </span>
+                      )}
                     </div>
                     <div className="text-end">
                       <h4 className="text-primary">${Number(request.amount || 0).toFixed(2)}</h4>
@@ -137,13 +154,15 @@ export default function ApprovalView({ user, token }) {
                           className="btn btn-success me-2"
                           onClick={() => handleApprove(request.id, 'approved')}
                         >
-                          <i className="fas fa-check me-1"></i> Approve
+                          <i className="fas fa-check me-1"></i> 
+                          {getActionButtonText(request, 'approved')}
                         </button>
                         <button
                           className="btn btn-danger"
                           onClick={() => handleApprove(request.id, 'rejected')}
                         >
-                          <i className="fas fa-times me-1"></i> Reject
+                          <i className="fas fa-times me-1"></i> 
+                          {getActionButtonText(request, 'rejected')}
                         </button>
                       </div>
                     </div>

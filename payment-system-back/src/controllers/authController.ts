@@ -77,21 +77,10 @@ export const register = async (req: AuthRequest, res: Response) => {
       role,
       department: department || 'General'
     });
-    // const token = jwt.sign(
-    //   { 
-    //     id: user.id, 
-    //     email: user.email, 
-    //     role: user.role, 
-    //     name: user.name 
-    //   },
-    //   process.env.JWT_SECRET || 'your-secret-key',
-    //   { expiresIn: '24h' }
-    // );
 
     res.status(201).json({
       message: 'User registered successfully',
       user,
-      // token
     });
   } catch (error) {
     console.error('Registration error:', error);

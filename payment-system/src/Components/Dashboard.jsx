@@ -65,7 +65,6 @@ const totalValue = recentRequests
   );
 }
 
-// ✅ Reusable Stat Card
 function StatCard({ label, value, icon, color, isCurrency = false }) {
   const displayValue = isCurrency
     ? `#${Number(value).toLocaleString(undefined, { minimumFractionDigits: 2 })}`
@@ -81,7 +80,7 @@ function StatCard({ label, value, icon, color, isCurrency = false }) {
     </div>
   );
 }
-// ✅ Recent Requests Table
+
 function RecentRequestsTable({ recentRequests }) {
   return (
     <div className="card">
@@ -126,7 +125,6 @@ function RecentRequestsTable({ recentRequests }) {
   );
 }
 
-// ✅ Workflow Card
 function WorkflowCard() {
   return (
     <div className="card">
@@ -153,7 +151,6 @@ function WorkflowCard() {
   );
 }
 
-// ✅ Notifications Card
 function NotificationsCard() {
   return (
     <div className="card mt-4">

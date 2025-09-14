@@ -1,6 +1,6 @@
 const API_BASE_URL = 'http://localhost:3000/api'; 
 export const apiService = {
-  // 🔐 Auth
+
   login: async (email, password) => {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
@@ -32,7 +32,6 @@ register: async (token, userData) => {
     return await response.json();
   },
 
-  // 💸 Payments
   createPaymentRequest: async (token, data, file) => {
      const formData = new FormData();
   
@@ -69,7 +68,6 @@ register: async (token, userData) => {
     return await response.json();
   },
 
-  // 🏢 Vendors
   getVendors: async (token) => {
     const response = await fetch(`${API_BASE_URL}/vendors`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -89,7 +87,6 @@ register: async (token, userData) => {
     return await response.json();
   },
 
-  // ✅ Approvals
   getPendingApprovals: async (token) => {
     const response = await fetch(`${API_BASE_URL}/approvals`, {
       headers: { Authorization: `Bearer ${token}` },

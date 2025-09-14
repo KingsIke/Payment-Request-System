@@ -25,28 +25,55 @@ export const ApprovalModel = {
     return result.rows;
   },
 
-findPendingForManager: async (managerId: string): Promise<any[]> => {
-  const result = await pool.query(`
-    SELECT pr.*, v.name AS vendor_name, u.name AS user_name, u.email AS user_email
-    FROM payment_requests pr
-    JOIN vendors v ON pr.vendor_id = v.id
-    JOIN users u ON pr.user_id = u.id
-    WHERE pr.status = 'pending'
-    ORDER BY pr.created_at DESC
-  `);
-  return result.rows;
-},
+  findPendingForManager: async (managerId: string): Promise<any[]> => {
+    const result = await pool.query(`
+      SELECT pr.*, v.name AS vendor_name, u.name AS user_name, u.email AS user_email
+      FROM payment_requests pr
+      JOIN vendors v ON pr.vendor_id = v.id
+      JOIN users u ON pr.user_id = u.id
+      WHERE pr.status = 'pending'
+      ORDER BY pr.created_at DESC
+    `);
+    return result.rows;
+  },
 
-findPendingForFinance: async (financeId: string): Promise<any[]> => {
-  const result = await pool.query(`
-    SELECT pr.*, v.name AS vendor_name, u.name AS user_name, u.email AS user_email
-    FROM payment_requests pr
-    JOIN vendors v ON pr.vendor_id = v.id
-    JOIN users u ON pr.user_id = u.id
-    WHERE pr.status = 'approved'
-    ORDER BY pr.created_at DESC
-  `);
-  return result.rows;
-}
-  
+  findPendingForFinance: async (financeId: string): Promise<any[]> => {
+    const result = await pool.query(`
+      SELECT pr.*, v.name AS vendor_name, u.name AS user_name, u.email AS user_email
+      FROM payment_requests pr
+      JOIN vendors v ON pr.vendor_id = v.id
+      JOIN users u ON pr.user_id = u.id
+      WHERE pr.status = 'approved'
+      ORDER BY pr.created_at DESC
+    `);
+    return result.rows;
+  },
+
+  findPendingForAdmin: async (): Promise<any[]> => {
+    const result = await pool.query(`
+      SELECT pr.*, v.name AS vendor_name, u.name AS user_name, u.email AS user_email
+      FROM payment_requests pr
+      JOIN vendors v ON pr.vendor_id = v.id
+      JOIN users u ON pr.user_id = u.id
+      WHERE pr.status IN ('pending', 'approved')
+      ORDER BY 
+        CASE 
+          WHEN pr.status = 'pending' THEN 1 
+          WHEN pr.status = 'approved' THEN 2 
+          ELSE 3 
+        END,
+        pr.created_at DESC
+    `);
+    return result.rows;
+  },
+    findAllForAdmin: async (): Promise<any[]> => {
+    const result = await pool.query(`
+      SELECT pr.*, v.name AS vendor_name, u.name AS user_name, u.email AS user_email
+      FROM payment_requests pr
+      JOIN vendors v ON pr.vendor_id = v.id
+      JOIN users u ON pr.user_id = u.id
+      ORDER BY pr.created_at DESC
+    `);
+    return result.rows;
+  }
 };

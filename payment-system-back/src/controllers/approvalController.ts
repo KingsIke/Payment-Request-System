@@ -12,11 +12,17 @@ export const getPendingApprovals = async (req: AuthRequest, res: Response) => {
     }
 
     let approvals;
-    if (req.user.role === 'manager') {
+    
+    if (req.user.role === 'admin') {
+      approvals = await ApprovalModel.findPendingForAdmin();
+    } 
+    else if (req.user.role === 'manager') {
       approvals = await ApprovalModel.findPendingForManager(req.user.id);
-    } else if (req.user.role === 'finance') {
+    } 
+    else if (req.user.role === 'finance') {
       approvals = await ApprovalModel.findPendingForFinance(req.user.id);
-    } else {
+    } 
+    else {
       return res.status(403).json({ message: 'Insufficient permissions' });
     }
 
@@ -26,7 +32,6 @@ export const getPendingApprovals = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
-
 export const processApproval = async (req: AuthRequest, res: Response) => {
   try {
     if (!req.user) return res.status(401).json({ message: 'Not authenticated' });
@@ -44,9 +49,9 @@ export const processApproval = async (req: AuthRequest, res: Response) => {
     let newStatus;
     if (status === 'rejected') {
       newStatus = 'rejected';
-    } else if (req.user.role === 'manager' && status === 'approved') {
+    } else if ((req.user.role === 'manager' || req.user.role === 'admin') && status === 'approved') {
       newStatus = 'approved';
-    } else if (req.user.role === 'finance' && status === 'approved') {
+    } else if ((req.user.role === 'finance' || req.user.role === 'admin') && status === 'approved') {
       newStatus = 'processing';
     } else {
       return res.status(403).json({ message: 'Invalid approval flow' });

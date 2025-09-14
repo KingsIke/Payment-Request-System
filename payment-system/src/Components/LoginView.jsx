@@ -64,14 +64,6 @@ export default function LoginView({ onLogin }) {
                 <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
                   {isLoading ? 'Signing in...' : 'Sign In'}
                 </button>
-                {/* <div className="text-center mt-3">
-                  <p>
-                    Don't have an account?{' '}
-                    <Link to="/register" className="text-decoration-none">
-                      Register Now
-                    </Link>
-                  </p>
-                </div> */}
               </form>
             </div>
           </div>

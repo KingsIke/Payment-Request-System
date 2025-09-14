@@ -1,12 +1,122 @@
-# React + Vite
+# Payment Approval System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## 🏗️ Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+src/
+├── api/
+│   └── apiService.js          # API communication layer
+├── components/
+│   ├── LoginView.jsx          # Authentication component
+│   ├── Dashboard.jsx          # Main dashboard
+│   ├── RequestView.jsx        # Payment request management
+│   ├── ApprovalView.jsx       # Approval processing
+│   ├── VendorView.jsx         # Vendor management
+│   ├── AdminDashboard.jsx     # Admin-specific features
+│   ├── NavBar.jsx             # Navigation header
+│   ├── Sidebar.jsx            # Role-based navigation
+│   └── MainContent.jsx        # Content router
+├── styles/
+│   └── App.css               # Application styles
+└── App.jsx                   # Main application component
+```
 
-## Expanding the ESLint configuration
+## 🔌 API Integration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The frontend communicates with the backend through:
+
+```javascript
+export const apiService = {
+  login: async (email, password) => { /* ... */ },
+  register: async (token, userData) => { /* ... */ },
+  createPaymentRequest: async (token, data, file) => { /* ... */ },
+  getPendingApprovals: async (token) => { /* ... */ },
+};
+```
+
+## 🎨 Styling
+
+- **Bootstrap 5** - Responsive grid and components
+- **Custom CSS** - Application-specific styles in App.css
+- **Font Awesome** - Icon library for UI elements
+- **Status Badges** - Color-coded request status indicators
+
+## 📊 Components Overview
+
+### LoginView
+- Email/password authentication
+- Form validation
+- Error handling
+- Redirect to appropriate dashboard
+
+### Dashboard
+- Role-based statistics cards
+- Recent activity tables
+- Quick action buttons
+- Notifications panel
+
+### RequestView
+- Payment request creation form
+- Vendor selection dropdown
+- File upload functionality
+- Request history table
+
+### ApprovalView
+- Pending approvals list
+- Approval/rejection actions
+- Comment system
+- Status tracking
+
+## 🔐 Authentication Flow
+
+1. User enters credentials in LoginView
+2. API validates and returns JWT token
+3. Token stored in localStorage
+4. All subsequent requests include token in headers
+5. Automatic token validation and refresh handling
+
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+
+# Run tests with UI
+npm run test:ui
+
+# Run coverage report
+npm run test:coverage
+```
+
+## 📋 Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **CORS Errors** - Ensure backend allows frontend domain
+2. **JWT Expired** - Token automatically cleared on 401 responses
+3. **Role Access Issues** - Check user role in database
+4. **File Upload Fails** - Verify Cloudinary configuration
+
+### Development Tools
+
+- React DevTools for component debugging
+- Network tab for API call inspection
+- LocalStorage viewer for token verification
+
+## 📞 Support
+
+For issues and questions:
+1. Check the browser console for errors
+2. Verify API endpoints are accessible
+3. Confirm environment variables are set
+4. Check user role permissions in database
+```

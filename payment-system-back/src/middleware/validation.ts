@@ -23,9 +23,6 @@ export const loginSchema = Joi.object({
 export const registerSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
-    confirmPassword: Joi.any().valid(Joi.ref('password')).required().messages({
-    'any.only': 'Passwords do not match'
-  }),
   name: Joi.string().min(2).required(),
   department: Joi.string().min(2).optional(),
     role: Joi.string().valid(...allowedRoles).required()

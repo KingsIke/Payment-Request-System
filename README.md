@@ -281,7 +281,7 @@ export NODE_ENV=development
 
 ## 📞 Support
 
-- Email: [support@payment-system.com](mailto:support@payment-system.com)  
+- Email: [ogbonnayakingsike@gmail..com](mailto:support@payment-system.com)  
 - Documentation: API Docs  
 - Issue Tracker: GitHub Issues  
 
@@ -289,5 +289,5 @@ export NODE_ENV=development
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [](LICENSE) file for details.
 ```

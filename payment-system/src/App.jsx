@@ -56,7 +56,6 @@ export default function App() {
        {!token || !user ? (
          <Routes>
            <Route path="/login" element={<LoginView onLogin={handleLogin} />} />
-           {/* <Route path="/register" element={<RegisterView onLogin={handleLogin} />} /> */}
            <Route path="*" element={<Navigate to="/login" />} />
          </Routes>
        ) : (

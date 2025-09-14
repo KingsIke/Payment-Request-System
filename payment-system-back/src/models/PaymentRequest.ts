@@ -43,7 +43,7 @@ export const PaymentRequestModel = {
     return stats;
   },
   
- findById: async (id: string) => {
+  findById: async (id: string) => {
     const result = await pool.query(`
       SELECT pr.*, u.email AS user_email
       FROM payment_requests pr
@@ -55,13 +55,10 @@ export const PaymentRequestModel = {
   },
 
   updateStatus: async (id: string, status: string) => {
-    await pool.query(
-      `UPDATE payment_requests SET status = $1 WHERE id = $2`,
+    const result = await pool.query(
+      `UPDATE payment_requests SET status = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *`,
       [status, id]
     );
+    return result.rows[0];
   }
-
-  
 };
-
-

@@ -1,17 +1,4 @@
 /* eslint-disable no-unused-vars */
-// // eslint-disable-next-line no-unused-vars
-// export default function AdminView({ user, token }) {
-//     return (
-//         <div className="main-content">
-//             <h2 className="mb-4"><i className="fas fa-cog me-2"></i>Administration</h2>
-//             <div className="alert alert-info">
-//                 <i className="fas fa-info-circle me-2"></i>
-//                 This section would provide system administration functions for admin users.
-//             </div>
-//         </div>
-//     );
-// }
-
 import React, { useState } from 'react';
 import { apiService } from '../api/apiService';
 import { toast } from 'react-toastify';
@@ -40,7 +27,7 @@ export default function AdminView({ user, token }) {
     }
 
     try {
-      // Remove confirmPassword before sending
+    
       const { confirmPassword, ...userData } = formData;
       const result = await apiService.register(token, userData);
       
